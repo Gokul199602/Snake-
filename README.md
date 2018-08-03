@@ -1,13 +1,13 @@
 # Snake-
 Its a snake and ladder game
 
-code for moving the player
 
 
-using UnityEngine;
-using System.Collections;
+//code for moving the player
 
-public class Points : MonoBehaviour {
+public class Points : MonoBehaviour 
+{
+//Variables declared
 	public Transform[] points;
 	public float moveSpeed = 1f;
 	public int pointIndex = 0;
@@ -222,3 +222,83 @@ public class Points : MonoBehaviour {
 				}
 		}
 }
+
+
+// Code to Generate Random Numbers.
+public class RandomGenerator : MonoBehaviour {
+	public TextMesh text1 = null;
+	public bool click = true;
+	public bool canMove = false;
+	public Camera camera = null;
+	public int t = 0;
+	public Ray ray;
+	public RaycastHit hit;
+	public Points move = null;
+	public int pin = 0;
+	public int pin1 = 0;
+	public Points move1 = null;
+	public int i =0;
+	public int j =0;
+	public TextMesh text = null;
+	public int k = 0;
+	public int number;
+	
+	//Generate the random no.s
+	public void RandomGenerate()
+	{
+		number = Random.Range (1,6);
+		text.text = number.ToString ();
+		pin = pin+number;
+		Debug.Log ("pin:"+pin);
+	}
+	public void RandomGenerate1()
+	{
+		number = Random.Range (1,6);
+		text.text = number.ToString ();
+		pin1 = pin1+number;
+		Debug.Log ("pin:"+pin1);
+	}
+	//click to update the position of player.
+	void Update(){
+
+		if (j==1) {
+				  move.Move (pin1);
+			text1.text ="Player:1";
+				}
+		if (k == 1) 
+		{
+			move1.Move(pin);
+			text1.text ="Player:2";
+		}
+		if (Input.GetMouseButtonDown (0)) 
+		{
+
+			ray = camera.ScreenPointToRay(Input.mousePosition);
+			if(Physics.Raycast(ray, out hit))
+			{
+				
+				if(hit.collider.name== this.name)
+				{
+					if(click == true){
+					RandomGenerate1();
+				    j=1;
+						k=0;
+						click = false;
+					}
+					else if(click==false)
+					{
+						RandomGenerate();
+						k=1;
+						j=0;
+						click = true;
+					}
+
+				}
+			}
+		}
+		}
+
+
+
+	}
+
